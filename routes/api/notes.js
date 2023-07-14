@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const createNote = require('../../helpers/createNote.js');
+const createNote = require('../../helpers/createNote.js');
 // const deleteNote = require('../../helpers/deleteNote.js');
 let notesArr = require('../../db/db.json');
 
@@ -12,7 +12,7 @@ router.get('/', (req,res)=>{
 });
 
 router.post('/', (req,res)=>{
-    res.json('notes POST sucess');
+    // res.json('notes POST sucess');
     //destructuring assignment for the items in req.body
     const {title, text, id} = req.body;
     //if all required props are present
