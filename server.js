@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3001;
 const api = require('./routes/api');
 const html = require('./routes/html')
-const path = require('path');
+
 
 //middleware for parsing JSON and urlencoded form data
 app.use('/api', api);
