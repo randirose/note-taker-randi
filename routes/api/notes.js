@@ -5,10 +5,10 @@ let notesArr = require('../../db/db.json');
 
 router.get('/', (req,res)=>{
     res.json('notes GET success');
-    readFromFile('../../db/db.json')
-    .then((data) =>{
-        res.json(JSON.parse(data))
-    });
+    // readFromFile('../../db/db.json')
+    // .then((data) =>{
+    //     res.json(JSON.parse(data))
+    // });
 });
 
 router.post('/', (req,res)=>{
