@@ -6,13 +6,17 @@ const { v4: uuidv4 } = require('uuid');
 const util = require('util');
 const fs = require('fs');
 const readFromFile = util.promisify(fs.readFile);
-const notesArr = require('../../db/notes.json');
 
 router.get('/', (req,res)=>{
-    // res.json(notesArr);
-    
     readFromFile('./db/notes.json')
-    .then((data) => res.json(JSON.parse(data)));
+    .then((data) => res.json(JSON.parse(data)))
+    .catch(error => {
+        if (error.name === 'SyntaxError' && error.message.includes('Unexpected end of JSON input')) {
+            console.error('Truncated data: Not all of the JSON data was received');
+        } else {
+            console.error(error);
+        }
+    })
 });
 
 
