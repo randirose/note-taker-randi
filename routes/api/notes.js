@@ -1,21 +1,17 @@
 const router = require('express').Router();
-const createNote = require('../../helpers/createNote.js');
-// const deleteNote = require('../../helpers/deleteNote.js');
-let notesArr = require('../../db/db.json');
+const readAndWrite = require('../../helpers/readAndWrite.js');
+const deleteNote = require('../../helpers/deleteNote.js');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
-const readFromFile = require('../../helpers/readFromFile.js');
+const util = require('util');
+const fs = require('fs');
+const readFromFile = util.promisify(fs.readFile);
 
-
-
-router.get('/', (req,res)=>{
-    // res.json('notes GET success');
-    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
+router.get('/', async (req,res)=>{
+    await readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
 });
 
 router.post('/', (req,res)=>{
-    console.log(req.body);
-    // res.json('notes POST sucess');
     //destructuring assignment for the items in req.body
     const { title, text } = req.body;
     //if all required props are present
@@ -23,10 +19,10 @@ router.post('/', (req,res)=>{
         const newNote = {
             title,
             text,
-            id: uuidv4(),
+            id: uuidv4(), //unique identifier function, from uuid library
         };
 
-        createNote(newNote, './db/db.json');
+        readAndWrite(newNote, './db/notes.json');
     
 
     const response = {
@@ -37,14 +33,22 @@ router.post('/', (req,res)=>{
 } else {
     res.json('error in posting new note')
 }
-    //receive a new note to save on the req body, add it to the db.json file, and then return the new note to the client
-    //each notes will need a unique id
 });
 
 router.delete('/:id', (req,res)=>{
-    res.json('notes DELETE success');
     //should receive a query parameter that contains the id of a note to delete
-    //will need to read all ntoes from the db.json file, remove the note with the given id property, and then rewrite the notes to the db.json file
+    const deletedNote = req.params.id;
+    if (deletedNote){
+        deleteNote(deletedNote, './db/notes.json');
+        const response = {
+            status: 'success',
+            body: deletedNote
+        }
+        res.json(response);
+    } else {
+        res.json('error in deleting note');
+    }
+    
 })
 
 
