@@ -2,28 +2,31 @@ const router = require('express').Router();
 const createNote = require('../../helpers/createNote.js');
 // const deleteNote = require('../../helpers/deleteNote.js');
 let notesArr = require('../../db/db.json');
+const path = require('path');
+const { v4: uuidv4 } = require('uuid');
+const readFromFile = require('../../helpers/readFromFile.js');
+
+
 
 router.get('/', (req,res)=>{
-    res.json('notes GET success');
-    // readFromFile('../../db/db.json')
-    // .then((data) =>{
-    //     res.json(JSON.parse(data))
-    // });
+    // res.json('notes GET success');
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 router.post('/', (req,res)=>{
+    console.log(req.body);
     // res.json('notes POST sucess');
     //destructuring assignment for the items in req.body
-    const {title, text, id} = req.body;
+    const { title, text } = req.body;
     //if all required props are present
-    if(title && text){
+    if(req.body){
         const newNote = {
             title,
             text,
-            id: uuid(),
-        }
+            id: uuidv4(),
+        };
 
-        createNote(newNote, notesArr);
+        createNote(newNote, './db/db.json');
     
 
     const response = {
