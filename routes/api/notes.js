@@ -5,12 +5,16 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const util = require('util');
 const fs = require('fs');
-const readFromFile = util.promisify(fs.readFile);
+// const readFromFile = util.promisify(fs.readFile);
+const notesArr = require('../../db/notes.json');
 
-router.get('/', async (req,res)=>{
-    await readFromFile('./db/notes.json')
-    .then((data) => res.json(JSON.parse(data)));
+router.get('/', (req,res)=>{
+    res.json(notesArr);
+    
+    // readFromFile('./db/notes.json')
+    // .then((data) => res.json(JSON.parse(data)));
 });
+
 
 router.post('/', (req,res)=>{
     //destructuring assignment for the items in req.body
