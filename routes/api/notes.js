@@ -30,8 +30,10 @@ router.post('/', (req,res)=>{
         body: newNote
     }
     res.json(response);
+    console.log(response);
 } else {
-    res.json('error in posting new note')
+    res.json('error in posting new note');
+    console.log('error in posting new note');
 }
 });
 
@@ -45,8 +47,10 @@ router.delete('/:id', (req,res)=>{
             body: deletedNote
         }
         res.json(response);
+        console.log(response);
     } else {
         res.json('error in deleting note');
+        console.log('error in deleting note');
     }
     
 })
