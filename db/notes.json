@@ -1,7 +1,17 @@
 [
     {
-        "title": "whaaaaaat",
-        "text": "knfglkndflkg",
-        "id": "7296a86c-9406-46bd-848e-2ab17fe53c93"
+        "title": "Example Note 1",
+        "text": "example note text here",
+        "id": "9595d368-2c95-43e9-a261-4b71a59fdcb2"
+    },
+    {
+        "title": "Another Example Note",
+        "text": "some more text",
+        "id": "0950dc8a-eb2d-44a4-8676-2779176bbe29"
+    },
+    {
+        "title": "Example Note 3",
+        "text": "here's some info",
+        "id": "e5558e3c-3f88-48ee-8c92-ef10f6dd0d90"
     }
 ]

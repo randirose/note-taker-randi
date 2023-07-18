@@ -4,7 +4,7 @@ const util = require('util');
 const readFromFile = util.promisify(fs.readFile);
 const writeToFile = util.promisify(fs.writeFile);
 
-
+// receives new note from router.post call and re-writes to file
 const readAndWrite = (content, file) => {
     readFromFile(file, 'utf8', (err, data) => {
       if (err) {

@@ -1,29 +1,29 @@
 const router = require('express').Router();
 const readAndWrite = require('../../helpers/readAndWrite.js');
 const deleteNote = require('../../helpers/deleteNote.js');
-const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const util = require('util');
 const fs = require('fs');
 const readFromFile = util.promisify(fs.readFile);
 
+// get request
 router.get('/', (req,res)=>{
     readFromFile('./db/notes.json')
     .then((data) => res.json(JSON.parse(data)))
     .catch(error => {
         if (error.name === 'SyntaxError' && error.message.includes('Unexpected end of JSON input')) {
-            console.error('Truncated data: Not all of the JSON data was received');
+            console.error('Truncated data: Not all of the JSON data was received'); // this error was kicking me out of my server every time on local host, added this to catch the error
         } else {
             console.error(error);
         }
     })
 });
 
-
+// post request
 router.post('/', (req,res)=>{
-    //destructuring assignment for the items in req.body
+    // destructuring assignment for the items in req.body
     const { title, text } = req.body;
-    //if all required props are present
+    // if all required props are present
     if(req.body){
         const newNote = {
             title,
@@ -46,8 +46,9 @@ router.post('/', (req,res)=>{
 }
 });
 
+// delete request
 router.delete('/:id', (req,res)=>{
-    //should receive a query parameter that contains the id of a note to delete
+    // receives a query parameter that contains the id of a note to delete
     const deletedNote = req.params.id;
     if (deletedNote){
         deleteNote(deletedNote, './db/notes.json');

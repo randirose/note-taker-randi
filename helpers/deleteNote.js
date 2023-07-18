@@ -4,7 +4,7 @@ const util = require('util');
 const readFromFile = util.promisify(fs.readFile);
 const writeToFile = util.promisify(fs.writeFile);
 
-
+// receives deleted note id from router.delete call and removes from array, re-writes to file
 const deleteNote = (deletedNote, file) => {
     readFromFile(file, 'utf8', (err, data) => {
       if (err) {
