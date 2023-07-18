@@ -8,7 +8,8 @@ const fs = require('fs');
 const readFromFile = util.promisify(fs.readFile);
 
 router.get('/', async (req,res)=>{
-    await readFromFile('./db/notes.json').then((data) => res.json(JSON.parse(data)));
+    await readFromFile('./db/notes.json')
+    .then((data) => res.json(JSON.parse(data)));
 });
 
 router.post('/', (req,res)=>{
