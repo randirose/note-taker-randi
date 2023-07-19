@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const readAndWrite = require('../../helpers/readAndWrite.js');
+const appendNote = require('../../helpers/appendNote.js');
 const deleteNote = require('../../helpers/deleteNote.js');
 const { v4: uuidv4 } = require('uuid');
 const util = require('util');
@@ -31,7 +31,7 @@ router.post('/', (req,res)=>{
             id: uuidv4(), //unique identifier function, from uuid library
         };
 
-        readAndWrite(newNote, './db/notes.json');
+        appendNote(newNote, './db/notes.json');
     
 
     const response = {

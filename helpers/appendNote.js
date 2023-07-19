@@ -5,7 +5,7 @@ const readFromFile = util.promisify(fs.readFile);
 const writeToFile = util.promisify(fs.writeFile);
 
 // receives new note from router.post call and re-writes to file
-const readAndWrite = (content, file) => {
+const appendNote = (content, file) => {
     readFromFile(file, 'utf8', (err, data) => {
       if (err) {
         console.error(err);
@@ -23,4 +23,4 @@ const readAndWrite = (content, file) => {
 
 
 
-module.exports = readAndWrite;
+module.exports = appendNote;
